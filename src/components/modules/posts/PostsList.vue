@@ -56,7 +56,7 @@ const description = computed(() => {
   >
     <v-expand-transition>
       <v-row dense align="center">
-        <v-col cols="4" class="pa-4">
+        <v-col cols="6" class="pa-4">
           <BaseSearch
             v-model="search"
           />
@@ -72,20 +72,6 @@ const description = computed(() => {
       item-value="id"
       @click:row="handleClickRow"
     />
-    <!--      <template #expanded-row="{ columns }">-->
-    <!--        <tr>-->
-    <!--          <td :colspan="columns.length" class="expanded-bg-color">-->
-    <!--            Post is created by:-->
-
-    <!--            <template v-if="userName">-->
-    <!--              <b>{{ userName }}</b>-->
-    <!--            </template>-->
-
-    <!--            <v-progress-circular v-else indeterminate color="primary"/>-->
-    <!--          </td>-->
-    <!--        </tr>-->
-    <!--      </template>-->
-    <!--    </v-data-table>-->
   </v-card>
 
   <BaseDialog

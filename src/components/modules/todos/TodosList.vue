@@ -69,7 +69,7 @@ const description = computed(() => {
   >
     <v-expand-transition>
       <v-row dense align="center">
-        <v-col cols="4" class="pa-4">
+        <v-col cols="6" class="pa-4">
           <BaseSearch
             v-model="search"
           />
