@@ -1,16 +1,21 @@
 <script setup>
+import { ref, computed } from 'vue';
 import { VDataTable } from 'vuetify/labs/components';
 import { useTodosStore } from '@/components/todos/todosStore.js';
+import BaseSearch from '@/components/base/BaseSearch.vue';
 
 const todosStore = useTodosStore();
 
 todosStore.getTodos();
+
+const search = ref('');
 
 const headers = [
   {
     key: 'title',
     title: 'Name',
     sortable: false,
+    filterable: true,
   }, {
     key: 'completed',
     title: 'Completed',
@@ -30,6 +35,14 @@ const handleCompleted = (isCompleted) => {
     };
 };
 
+const filteredTodos = computed(() => {
+  if (!search.value) {
+    return todosStore.todos;
+  }
+
+  return todosStore.todos.filter(({ title }) => title.includes(search.value));
+});
+
 </script>
 
 <template>
@@ -37,10 +50,21 @@ const handleCompleted = (isCompleted) => {
     :loading="todosStore.todosLoading"
     border
   >
+    <v-expand-transition>
+      <v-row dense align="center">
+        <v-col cols="4" class="pa-4">
+          <BaseSearch
+            v-model="search"
+          />
+        </v-col>
+      </v-row>
+    </v-expand-transition>
+
     <v-data-table
       :items-per-page="50"
       :headers="headers"
-      :items="todosStore.todos"
+      :items="filteredTodos"
+      :search="search"
     >
       <template #item.completed="{ item }">
         <v-icon
