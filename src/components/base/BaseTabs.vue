@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue';
-import PostsList from '@/components/posts/PostsList.vue';
-import TodosList from '@/components/todos/TodosList.vue';
+import PostsList from '@/components/modules/posts/PostsList.vue';
+import TodosList from '@/components/modules/todos/TodosList.vue';
 
 const tab = ref('todos');
 
@@ -48,3 +48,9 @@ const items = [
     </v-card-text>
   </v-card>
 </template>
+
+<style>
+.v-table > .v-table__wrapper > table > tbody .expanded-bg-color {
+  background-color: #eee;
+}
+</style>

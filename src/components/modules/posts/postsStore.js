@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
-import { getPosts } from '@/components/posts/postsApi.js';
+import { getPosts } from '@/components/modules/posts/postsApi.js';
 
 export const usePostsStore = defineStore('postsStore', {
   state: () => ({

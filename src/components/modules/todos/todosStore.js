@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
-import { getTodos } from '@/components/todos/todosApi.js';
+import { getTodos } from '@/components/modules/todos/todosApi.js';
 
 export const useTodosStore = defineStore('todosStore', {
   state: () => ({

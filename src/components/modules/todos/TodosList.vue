@@ -1,14 +1,18 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { VDataTable } from 'vuetify/labs/components';
-import { useTodosStore } from '@/components/todos/todosStore.js';
+import { useTodosStore } from '@/components/modules/todos/todosStore.js';
+import { getUser } from '@/api/userApi.js';
 import BaseSearch from '@/components/base/BaseSearch.vue';
+import BaseDialog from '@/components/base/BaseDialog.vue';
 
 const todosStore = useTodosStore();
 
 todosStore.getTodos();
 
 const search = ref('');
+const userName = ref('');
+const isShowDialog = ref(false);
 
 const headers = [
   {
@@ -43,6 +47,19 @@ const filteredTodos = computed(() => {
   return todosStore.todos.filter(({ title }) => title.includes(search.value));
 });
 
+const handleClickRow = async ({ target }, { item }) => {
+  const userId = item.raw.userId;
+
+  const { data } = await getUser(userId);
+
+  userName.value = data.name;
+  isShowDialog.value = true;
+};
+
+const description = computed(() => {
+  return `Todo is created by: <b>${userName.value}</b>`;
+});
+
 </script>
 
 <template>
@@ -65,6 +82,8 @@ const filteredTodos = computed(() => {
       :headers="headers"
       :items="filteredTodos"
       :search="search"
+      item-value="id"
+      @click:row="handleClickRow"
     >
       <template #item.completed="{ item }">
         <v-icon
@@ -74,4 +93,9 @@ const filteredTodos = computed(() => {
       </template>
     </v-data-table>
   </v-card>
+
+  <BaseDialog
+    v-model="isShowDialog"
+    :description="description"
+  />
 </template>
