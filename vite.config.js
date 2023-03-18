@@ -8,6 +8,7 @@ function resolve(dir) {
 }
 
 export default defineConfig({
+  base: '/cose-data-challenge/',
   plugins: [
     vue(),
     eslint({
